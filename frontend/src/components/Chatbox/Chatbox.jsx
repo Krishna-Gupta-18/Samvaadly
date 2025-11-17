@@ -8,13 +8,12 @@ const Chatbox = ({ onToggleSidebar }) => {
   const [newMessage, setNewMessage] = useState('')
   const [selectedImage, setSelectedImage] = useState(null)
   const [currentChatUser, setCurrentChatUser] = useState(null)
-  const receiver = currentChat || 'bot@example.com' // Use currentChat if available
 
   useEffect(() => {
-    if (currentUser) {
-      fetchMessages(currentUser.email, receiver)
+    if (currentUser && currentChat) {
++      fetchMessages(currentUser.email, currentChat)
     }
-  }, [currentUser, receiver, fetchMessages])
+  }, [currentUser, currentChat, fetchMessages])
 
   useEffect(() => {
     const fetchUserProfile = async (email) => {
@@ -36,10 +35,10 @@ const Chatbox = ({ onToggleSidebar }) => {
   }, [currentChat])
 
   const handleSend = () => {
-    if ((newMessage.trim() || selectedImage) && currentUser) {
+    if ((newMessage.trim() || selectedImage) && currentUser && currentChat) {
       const messageData = {
         sender: currentUser.email,
-        receiver,
+        receiver: currentChat,
         text: newMessage,
         image: selectedImage,
       }
@@ -75,13 +74,19 @@ const Chatbox = ({ onToggleSidebar }) => {
         <img src={assets.help_icon} className="help" alt="Help" />
       </div>
       <div className="chat-msg">
-        {(messages[currentChat] || []).map(msg => (
-          <div key={msg._id || msg.id} className={`msg ${msg.sender === currentUser?.email ? 's-msg' : 'r-msg'}`}>
-            {msg.image && <img src={msg.image} alt="Sent" className="msg-image" />}
-            <p className="msg-text">{msg.text}</p>
-            <span className="msg-time">{msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : msg.time}</span>
+        {currentChat ? (
++          (messages[currentChat] || []).map(msg => (
++            <div key={msg._id || msg.id} className={`msg ${msg.sender === currentUser?.email ? 's-msg' : 'r-msg'}`}>
++              {msg.image && <img src={msg.image} alt="Sent" className="msg-image" />}
++              <p className="msg-text">{msg.text}</p>
++              <span className="msg-time">{msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : msg.time}</span>
++            </div>
++          ))
++        ) : (
++          <div className="no-chat-message">
++            <p>Select a chat to start messaging</p>
           </div>
-        ))}
+        )}
       </div>
       <div className="chat-input">
         <input
@@ -108,4 +113,5 @@ const Chatbox = ({ onToggleSidebar }) => {
 }
 
 export default Chatbox
+
 
