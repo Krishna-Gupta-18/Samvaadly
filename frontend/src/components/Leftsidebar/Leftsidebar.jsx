@@ -23,7 +23,7 @@ const Leftsidebar = ({ className, onClose }) => {
     try {
       const response = await fetch(`https://samvaadly.onrender.com/api/friends/${currentUser.email}`)
       const data = await response.json()
-      setFriends(data)
+     setFriends(data.filter(friend => !friend.email.includes('bot')))
     } catch (error) {
       console.error('Error fetching friends:', error)
     }
@@ -33,7 +33,7 @@ const Leftsidebar = ({ className, onClose }) => {
     try {
       const response = await fetch('https://samvaadly.onrender.com/api/users')
       const data = await response.json()
-      setAllUsers(data.filter(user => user.email !== currentUser.email))
+     setAllUsers(data.filter(user => user.email !== currentUser.email && !user.email.includes('bot')))
     } catch (error) {
       console.error('Error fetching users:', error)
     }
@@ -148,3 +148,4 @@ const Leftsidebar = ({ className, onClose }) => {
 }
 
 export default Leftsidebar
+
