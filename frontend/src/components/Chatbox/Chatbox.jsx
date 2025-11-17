@@ -71,7 +71,7 @@ const Chatbox = ({ onToggleSidebar }) => {
       <div className="chat-user">
         <img src={assets.menu_icon} alt="Menu" className="mobile-menu" onClick={onToggleSidebar} style={{ width: '24px', height: '24px', marginRight: '10px', cursor: 'pointer', display: 'none' }} />
         <img src={currentChatUser?.profileImage || assets.avatar_icon} alt="User" />
-        <p>{currentChatUser?.username || currentChat || 'Bot'} </p>
+        <p>{currentChatUser?.username || currentUser?.username || 'You'} </p>
         <img src={assets.help_icon} className="help" alt="Help" />
       </div>
       <div className="chat-msg">
@@ -108,3 +108,4 @@ const Chatbox = ({ onToggleSidebar }) => {
 }
 
 export default Chatbox
+
