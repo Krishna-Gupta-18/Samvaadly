@@ -10,9 +10,9 @@ const App = () => {
   return (
     <AppContextProvider>
       <Routes>
-        <Route path='https://samvaadly-chat-app.onrender.com/' element={<Login/>}/>
-        <Route path='https://samvaadly-chat-app.onrender.com/Chat' element={<Chat/>}/>
-        <Route path='https://samvaadly-chat-app.onrender.com/Profileupdate' element={<Profileupdate/>}/>
+        <Route path='/' element={<Login/>}/>
+        <Route path='/Chat' element={<Chat/>}/>
+        <Route path='/Profileupdate' element={<Profileupdate/>}/>
       </Routes>
     </AppContextProvider>
   )
