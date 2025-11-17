@@ -81,7 +81,7 @@ const Chatbox = ({ onToggleSidebar }) => {
 +              <p className="msg-text">{msg.text}</p>
 +              <span className="msg-time">{msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : msg.time}</span>
 +            </div>
-+          ))
++          )
 +        ) : (
 +          <div className="no-chat-message">
 +            <p>Select a chat to start messaging</p>
@@ -113,5 +113,6 @@ const Chatbox = ({ onToggleSidebar }) => {
 }
 
 export default Chatbox
+
 
 
