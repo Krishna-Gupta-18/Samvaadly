@@ -43,7 +43,7 @@ const Login = () => {
           setMessage('Login successful!')
           // Store user session and redirect
           localStorage.setItem('user', JSON.stringify({ email: formData.email }))
-          window.location.href = 'https://samvaadly-chat-app.onrender.com/Chat'
+          window.location.href = '/Chat'
         } else {
           setMessage(data.error || 'Login failed')
         }
@@ -164,5 +164,6 @@ const Login = () => {
 }
 
 export default Login
+
 
 
