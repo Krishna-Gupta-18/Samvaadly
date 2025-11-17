@@ -52,7 +52,7 @@ const Rightsidebar = () => {
     <div className='rs'>
       <div className="rs-profile">
         <img src={currentChatUser?.profileImage || assets.avatar_icon} alt="Profile" />
-        <h3>{currentChatUser?.username || currentChat || 'Bot'}</h3>
+         <h3>{currentChatUser?.username || currentUser?.username || 'You'}</h3>
         <p>Online</p>
       </div>
       <div className="rs-media">
@@ -67,3 +67,4 @@ const Rightsidebar = () => {
 }
 
 export default Rightsidebar
+
