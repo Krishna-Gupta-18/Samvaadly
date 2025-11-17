@@ -4,10 +4,10 @@ A real-time chat application built with MongoDB, Express.js, React.js, and Node.
 
 ## Features:-
 
--Real-time messaging with WebSocket (Socket.io)
--User authentication (signup/login)
--Online user status display
--Responsive design for desktop and mobile
--Message timestamps and user identification
+- Real-time messaging with WebSocket (Socket.io)
+- User authentication (signup/login)
+- Online user status display
+- Responsive design for desktop and mobile
+- Message timestamps and user identification
 
 project live link:-https://samvaadly-chat-app.onrender.com
