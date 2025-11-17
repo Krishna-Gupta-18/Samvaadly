@@ -141,7 +141,16 @@
   margin-bottom: 5px;
   object-fit: cover;
 }
-
+no-chat-message {
++  display: flex;
++  justify-content: center;
++  align-items: center;
++  height: 100%;
++  color: #666;
++  font-size: 18px;
++  text-align: center;
++}
++
 /* Tablet styles */
 @media (max-width: 768px) {
   .chat-box {
@@ -207,3 +216,4 @@
     height: 35px;
   }
 }
+
