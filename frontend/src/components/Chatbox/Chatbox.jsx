@@ -73,18 +73,18 @@ const Chatbox = ({ onToggleSidebar }) => {
         <p>{currentChatUser?.username || currentUser?.username || 'You'} </p>
         <img src={assets.help_icon} className="help" alt="Help" />
       </div>
-      <div className="chat-msg">
+     <div className="chat-msg">
         {currentChat ? (
-+          (messages[currentChat] || []).map(msg => (
-+            <div key={msg._id || msg.id} className={`msg ${msg.sender === currentUser?.email ? 's-msg' : 'r-msg'}`}>
-+              {msg.image && <img src={msg.image} alt="Sent" className="msg-image" />}
-+              <p className="msg-text">{msg.text}</p>
-+              <span className="msg-time">{msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : msg.time}</span>
-+            </div>
-+          )
-+        ) : (
-+          <div className="no-chat-message">
-+            <p>Select a chat to start messaging</p>
+          (messages[currentChat] || []).map(msg => (
+            <div key={msg._id || msg.id} className={`msg ${msg.sender === currentUser?.email ? 's-msg' : 'r-msg'}`}>
+              {msg.image && <img src={msg.image} alt="Sent" className="msg-image" />}
+              <p className="msg-text">{msg.text}</p>
+              <span className="msg-time">{msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : msg.time}</span>
+            </div>
+          ))
+        ) : (
+          <div className="no-chat-message">
+            <p>Select a chat to start messaging</p>
           </div>
         )}
       </div>
@@ -113,6 +113,7 @@ const Chatbox = ({ onToggleSidebar }) => {
 }
 
 export default Chatbox
+
 
 
 
