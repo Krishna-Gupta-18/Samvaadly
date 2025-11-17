@@ -28,7 +28,7 @@ const Login = () => {
 
     if (isLogin) {
       try {
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://samvaadly.onrender.com/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const Login = () => {
         return
       }
       try {
-        const response = await fetch('/api/signup', {
+        const response = await fetch('https://samvaadly.onrender.com/api/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -164,3 +164,4 @@ const Login = () => {
 }
 
 export default Login
+
