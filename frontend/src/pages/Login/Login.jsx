@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Login.css'
 import assets from '../../assets/assets'
 
 const Login = () => {
+  const navigate = useNavigate()
   const [isLogin, setIsLogin] = useState(true)
   const [formData, setFormData] = useState({
     username: '',
@@ -43,7 +45,7 @@ const Login = () => {
           setMessage('Login successful!')
           // Store user session and redirect
           localStorage.setItem('user', JSON.stringify({ email: formData.email }))
-          window.location.href = '/Chat'
+          navigate('/Chat')
         } else {
           setMessage(data.error || 'Login failed')
         }
@@ -164,6 +166,7 @@ const Login = () => {
 }
 
 export default Login
+
 
 
 
