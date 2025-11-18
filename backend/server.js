@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "https://samvaadly-chat-app.onrender.com/",
+    origin: "https://samvaadly-chat-app.onrender.com",
     methods: ["GET", "POST"]
   }
 });
@@ -214,6 +214,7 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
 
 
 
