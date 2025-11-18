@@ -22,10 +22,20 @@ const Leftsidebar = ({ className, onClose }) => {
   const fetchFriends = async () => {
     try {
       const response = await fetch(`https://samvaadly.onrender.com/api/friends/${currentUser.email}`)
-      const data = await response.json()
-     setFriends(data.filter(friend => !friend.email.includes('bot')))
+     if (response.ok) {
+        const data = await response.json()
+        if (Array.isArray(data)) {
+          setFriends(data.filter(friend => friend.email && !friend.email.includes('bot')))
+        } else {
+          setFriends([])
+        }
+      } else {
+        console.error('Failed to fetch friends:', response.status)
+        setFriends([])
+   }
     } catch (error) {
       console.error('Error fetching friends:', error)
+      setFriends([])
     }
   }
 
@@ -148,4 +158,5 @@ const Leftsidebar = ({ className, onClose }) => {
 }
 
 export default Leftsidebar
+
 
