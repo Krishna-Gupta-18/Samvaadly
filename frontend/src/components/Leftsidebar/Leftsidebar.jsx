@@ -22,7 +22,7 @@ const Leftsidebar = ({ className, onClose }) => {
   const fetchFriends = async () => {
     try {
       const response = await fetch(`https://samvaadly.onrender.com/api/friends/${currentUser.email}`)
-     if (response.ok) {
+      if (response.ok) {
         const data = await response.json()
         if (Array.isArray(data)) {
           setFriends(data.filter(friend => friend.email && !friend.email.includes('bot')))
@@ -32,7 +32,7 @@ const Leftsidebar = ({ className, onClose }) => {
       } else {
         console.error('Failed to fetch friends:', response.status)
         setFriends([])
-   }
+      }
     } catch (error) {
       console.error('Error fetching friends:', error)
       setFriends([])
@@ -43,7 +43,7 @@ const Leftsidebar = ({ className, onClose }) => {
     try {
       const response = await fetch('https://samvaadly.onrender.com/api/users')
       const data = await response.json()
-     setAllUsers(data.filter(user => user.email !== currentUser.email && !user.email.includes('bot')))
+      setAllUsers(data.filter(user => user.email !== currentUser.email && !user.email.includes('bot')))
     } catch (error) {
       console.error('Error fetching users:', error)
     }
@@ -134,6 +134,13 @@ const Leftsidebar = ({ className, onClose }) => {
         </div>
       </div>
       <div className="ls-list">
+        <div className="friends" onClick={() => handleChatWithFriend(currentUser.email)}>
+          <img src={currentUser?.profileImage || assets.avatar_icon} alt="You" />
+          <div>
+            <p>You</p>
+            <span className="online">Online</span>
+          </div>
+        </div>
         {friends.map(friend => (
           <div key={friend.email} className="friends" onClick={() => handleChatWithFriend(friend.email)}>
             <img src={friend.profileImage || assets.avatar_icon} alt={friend.username || friend.email} />
@@ -158,5 +165,3 @@ const Leftsidebar = ({ className, onClose }) => {
 }
 
 export default Leftsidebar
-
-
