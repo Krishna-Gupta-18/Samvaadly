@@ -12,6 +12,8 @@ export const AppContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState({});
   const [currentChat, setCurrentChat] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
+  const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -71,6 +73,55 @@ export const AppContextProvider = ({ children }) => {
     }
   };
 
+  const fetchFriends = async () => {
+    try {
+      const response = await fetch(`https://samvaadly.onrender.com/api/friends/${currentUser.email}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setFriends(data.filter(friend => friend.email && !friend.email.includes('bot')));
+        } else {
+          setFriends([]);
+        }
+      } else {
+        console.error('Failed to fetch friends:', response.status);
+        setFriends([]);
+      }
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      setFriends([]);
+    }
+  };
+
+  const fetchAllUsers = async () => {
+    try {
+      const response = await fetch('https://samvaadly.onrender.com/api/users');
+      const data = await response.json();
+      setAllUsers(data.filter(user => user.email !== currentUser.email && !user.email.includes('bot')));
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchFriends();
+      fetchAllUsers();
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('userSignedUp', () => {
+        fetchAllUsers();
+      });
+      socket.on('friendAdded', () => {
+        fetchFriends();
+        fetchAllUsers();
+      });
+    }
+  }, [socket, currentUser]);
+
   const value = {
     socket,
     currentUser,
@@ -82,6 +133,12 @@ export const AppContextProvider = ({ children }) => {
     joinRoom,
     sendMessage,
     fetchMessages,
+    allUsers,
+    setAllUsers,
+    friends,
+    setFriends,
+    fetchFriends,
+    fetchAllUsers,
   };
 
   return (
