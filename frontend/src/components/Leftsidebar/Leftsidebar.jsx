@@ -7,10 +7,8 @@ import { useAppContext } from '../../context/appcontext'
 const Leftsidebar = ({ className, onClose }) => {
   const [search, setSearch] = useState('')
   const [showMenu, setShowMenu] = useState(false)
-  const [allUsers, setAllUsers] = useState([])
-  const [friends, setFriends] = useState([])
   const navigate = useNavigate()
-  const { currentUser, setMessages, fetchMessages, setCurrentChat } = useAppContext()
+  const { currentUser, setMessages, fetchMessages, setCurrentChat, allUsers, setAllUsers, friends, setFriends, fetchFriends, fetchAllUsers } = useAppContext()
 
   useEffect(() => {
     if (currentUser) {
@@ -18,36 +16,6 @@ const Leftsidebar = ({ className, onClose }) => {
       fetchAllUsers()
     }
   }, [currentUser, friends.length]) // Add friends.length to dependency to refresh when friends change
-
-  const fetchFriends = async () => {
-    try {
-      const response = await fetch(`https://samvaadly.onrender.com/api/friends/${currentUser.email}`)
-      if (response.ok) {
-        const data = await response.json()
-        if (Array.isArray(data)) {
-          setFriends(data.filter(friend => friend.email && !friend.email.includes('bot')))
-        } else {
-          setFriends([])
-        }
-      } else {
-        console.error('Failed to fetch friends:', response.status)
-        setFriends([])
-      }
-    } catch (error) {
-      console.error('Error fetching friends:', error)
-      setFriends([])
-    }
-  }
-
-  const fetchAllUsers = async () => {
-    try {
-      const response = await fetch('https://samvaadly.onrender.com/api/users')
-      const data = await response.json()
-      setAllUsers(data.filter(user => user.email !== currentUser.email && !user.email.includes('bot')))
-    } catch (error) {
-      console.error('Error fetching users:', error)
-    }
-  }
 
   const handleAddFriend = async (friendEmail) => {
     try {
