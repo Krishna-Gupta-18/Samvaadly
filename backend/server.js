@@ -59,6 +59,7 @@ app.post('/api/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ email, password: hashedPassword });
     await user.save();
+    io.emit('userSignedUp'); 
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -139,7 +140,7 @@ app.post('/api/add-friend', async (req, res) => {
       friend.friends.push(userEmail);
       await friend.save();
     }
-
+     io.emit('friendAdded');
     res.json({ message: 'Friend added successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -214,6 +215,7 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
 
 
 
